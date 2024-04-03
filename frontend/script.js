@@ -39,8 +39,8 @@ async function sendMessage() {
     document.getElementById('loader').style.display = "inline-block"; // Show loading icon
 
     try {
-        const response = await fetch('http://localhost:3003/professorFish', {
-            //https://7nkoiwsu6vlyq6cpeffqu42b2y0xkedb.lambda-url.ap-southeast-2.on.aws/professorFish //for serverless
+        const response = await fetch('https://gfnps5835a.execute-api.ap-northeast-2.amazonaws.com/default/chatPotterFunction', {
+            //https://o4mpwjruijpd3eu6gv7f2o7xmi0wdacz.lambda-url.ap-northeast-2.on.aws/professorFish //for serverless
             //http://localhost:3003/professorFish //for local test
             method: 'POST',
             headers: {

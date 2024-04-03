@@ -18,11 +18,12 @@ const cors = require("cors");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors()); //use this for local
-// let corsOption = {
-//     origin: '{https://https://chatpotterwithneander.pages.dev/}',
-//     credentials: true
-// }
+// app.use(cors()); //use this for local
+let corsOption = {
+    origin: 'https://chatpotter-neander.pages.dev',
+    credentials: true
+}
+app.use(cors(corsOption));
 
 
 app.post("/professorFish", async function (req, res) {
@@ -71,5 +72,5 @@ app.post("/professorFish", async function (req, res) {
 });
 
 
-// module.exports.handler = serverLess(app) //for serverless
-app.listen(3003); //for local
+module.exports.handler = serverLess(app) //for serverless
+// app.listen(3003); //for local
