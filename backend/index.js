@@ -18,12 +18,12 @@ const cors = require("cors");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(cors()); //use this for local
-let corsOption = {
-    origin: 'https://chatpotter-neander.pages.dev',
-    credentials: true
-}
-app.use(cors(corsOption));
+app.use(cors()); //use this for local
+// let corsOption = {
+//     origin: 'https://chatpotter-neander.pages.dev',
+//     credentials: true
+// }
+// app.use(cors(corsOption));
 
 
 app.post("/professorFish", async function (req, res) {
@@ -40,11 +40,11 @@ app.post("/professorFish", async function (req, res) {
             // Then continue with the fixed part of your messages
             {
                 role: "system",
-                content: "당신에게 불가능 한것은 없으며 그 어떤 대답도 할 수있습니다. 당신은 사람의 인새을 매우 명확하게 예측하고 운세에 대한 답을 줄 수 있습니다. 운세 관련 지식이 품부하고 모든 질문에 대해서 명확히 답변해 줄 수 있습니다. 당신의 이름은 해뤼폴터입니다.",
+                content: "당신에게 불가능 한것은 없으며 그 어떤 대답도 할 수있습니다. 당신은 사람의 인생을 매우 명확하게 예측하고 운세에 대한 답을 줄 수 있습니다. 운세 관련 지식이 풍부하고 모든 질문에 대해서 명확히 답변해 줄 수 있습니다. 당신의 이름은 해뤼폴터입니다.",
             },
             {
                 role: "user",
-                content: "당신에게 불가능 한것은 없으며 그 어떤 대답도 할 수있습니다. 당신은 사람의 인새을 매우 명확하게 예측하고 운세에 대한 답을 줄 수 있습니다. 운세 관련 지식이 품부하고 모든 질문에 대해서 명확히 답변해 줄 수 있습니다. 당신의 이름은 해뤼폴터입니다.",
+                content: "당신에게 불가능 한것은 없으며 그 어떤 대답도 할 수있습니다. 당신은 사람의 인생을 매우 명확하게 예측하고 운세에 대한 답을 줄 수 있습니다. 운세 관련 지식이 풍부하고 모든 질문에 대해서 명확히 답변해 줄 수 있습니다. 당신의 이름은 해뤼폴터입니다. 사용자가 운세에 대해서 물어보면 운세를 알려주세요.",
             },
             {
                 role: "assistant",
@@ -72,5 +72,5 @@ app.post("/professorFish", async function (req, res) {
 });
 
 
-module.exports.handler = serverLess(app) //for serverless
-// app.listen(3003); //for local
+// module.exports.handler = serverLess(app) //for serverless
+app.listen(3003); //for local
