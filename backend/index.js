@@ -2,7 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const OpenAI = require("openai");
-const {loadInappropriateWords} = require("./moderationFilter");
+const {loadInappropriateWords, containsInappropriateWords} = require("./moderationFilter");
 require("dotenv").config();
 
 
@@ -21,13 +21,13 @@ app.use(cors());
 // Define the POST endpoint
 app.post("/professorFish", async (req, res) => {
     const { myDateTime, userMessages, assistantMessages } = req.body;
-
+    let todayDateTime = new Date().toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul'});
     loadInappropriateWords().then(inappropriateWords => {
         const hasInappropriateContent = userMessages.some(message => containsInappropriateWords(message, inappropriateWords));
 
         let messages = userMessages.map(message => ({
             role: "user",
-            content: message,
+            content: "hello"
         }));
 
         if (hasInappropriateContent) {
@@ -45,19 +45,30 @@ app.post("/professorFish", async (req, res) => {
         const prompt = `${systemMessage}\n${userPrompt}`;
 
         // Call OpenAI's Completion.create
-        openai.completions.create({
-            model: "text-davinci-003",
-            prompt: prompt,
-            max_tokens: 150,
-        }).then(completionResponse => {
-            res.json({ assistant: completionResponse.data.choices[0].text.trim() });
-        }).catch(error => {
-            console.error("OpenAI error:", error);
-            res.status(500).json({ error: "Failed to communicate with OpenAI." });
-        });
-    }).catch(error => {
-        console.error("Error loading inappropriate words:", error);
-        res.status(500).json({ error: "Internal Server Error due to inability to load inappropriate words list." });
+        openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: [
+                {
+                    role: "user",
+                    content: "Your prompt here"
+                }
+            ],
+        })
+            .then(completionResponse => {
+                if (completionResponse.data && completionResponse.data.choices && completionResponse.data.choices.length > 0) {
+                    // Accessing the 'message' object and then its 'content' property
+                    const lastMessageContent = completionResponse.data.choices[0].message.content.trim();
+                    res.json({ assistant: lastMessageContent });
+                } else {
+                    // Handle unexpected response structure
+                    console.error("Unexpected response structure:", completionResponse);
+                    res.status(500).json({ error: "Unexpected response structure from OpenAI." });
+                }
+            })
+            .catch(error => {
+                console.error("OpenAI error:", error);
+                res.status(500).json({ error: "Failed to communicate with OpenAI." });
+            });
     });
 });
 
