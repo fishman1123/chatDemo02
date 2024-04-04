@@ -1,6 +1,8 @@
 
 //gpt-api
 const OpenAI = require("openai");
+require('dotenv').config();
+
 
 const myApiKey = process.env.API_KEY; // Make sure to set this in your Lambda environment variables
 const openai = new OpenAI({
