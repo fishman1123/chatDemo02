@@ -74,8 +74,8 @@ app.post("/professorFish", async function (req, res) {
 });
 
 
-// module.exports.handler = serverLess(app) //for serverless
+module.exports.handler = serverLess(app) //for serverless
 // app.listen(3003); //for local
-app.listen(80, () => {
-    console.log('Server running on port 80');
-});//for server
+// app.listen(80, () => {
+//     console.log('Server running on port 80');
+// });//for server
