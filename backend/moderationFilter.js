@@ -22,3 +22,4 @@ const containsInappropriateWords = (text, inappropriateWords) => {
 };
 
 module.exports = { loadInappropriateWords, containsInappropriateWords };
+
