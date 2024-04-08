@@ -3,6 +3,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
     displayMessage("====THIS IS DEMO====", "assistant");
 });
 
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Optionally, display an initial message from Professor Fish if needed
+    displayMessage("====THIS IS DEMO====", "assistant");
+
+    // Listen for Enter key presses on the chat input field
+    document.getElementById('chatInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault(); // Prevent the default action to avoid form submission
+            sendMessage(); // Trigger the sendMessage function
+        }
+    });
+});
+
 let userMessages = [];
 let assistantMessages = [];
 
